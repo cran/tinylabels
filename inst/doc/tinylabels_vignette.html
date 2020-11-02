@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Introduction to Tiny Variable Labels</title>
+
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      code.sourceCode > span { display: inline-block; line-height: 1.25; }
+  code.sourceCode > span { color: inherit; text-decoration: inherit; }
+  code.sourceCode > span:empty { height: 1.2em; }
+  .sourceCode { overflow: visible; }
+  code.sourceCode { white-space: pre; position: relative; }
+  div.sourceCode { margin: 1em 0; }
+  pre.sourceCode { margin: 0; }
+  @media screen {
+  div.sourceCode { overflow: auto; }
+  }
+  @media print {
+  code.sourceCode { white-space: pre-wrap; }
+  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+  }
+  pre.numberSource code
+    { counter-reset: source-line 0; }
+  pre.numberSource code > span
+    { position: relative; left: -4em; counter-increment: source-line; }
+  pre.numberSource code > span > a:first-child::before
+    { content: counter(source-line);
+      position: relative; left: -1em; text-align: right; vertical-align: baseline;
+      border: none; display: inline-block;
+      -webkit-touch-callout: none; -webkit-user-select: none;
+      -khtml-user-select: none; -moz-user-select: none;
+      -ms-user-select: none; user-select: none;
+      padding: 0 4px; width: 4em;
+      color: #aaaaaa;
+    }
+  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+  div.sourceCode
+    {   }
+  @media screen {
+  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+  }
+  code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+  code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+  code span.at { color: #7d9029; } /* Attribute */
+  code span.bn { color: #40a070; } /* BaseN */
+  code span.bu { } /* BuiltIn */
+  code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+  code span.ch { color: #4070a0; } /* Char */
+  code span.cn { color: #880000; } /* Constant */
+  code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+  code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+  code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+  code span.dt { color: #902000; } /* DataType */
+  code span.dv { color: #40a070; } /* DecVal */
+  code span.er { color: #ff0000; font-weight: bold; } /* Error */
+  code span.ex { } /* Extension */
+  code span.fl { color: #40a070; } /* Float */
+  code span.fu { color: #06287e; } /* Function */
+  code span.im { } /* Import */
+  code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+  code span.op { color: #666666; } /* Operator */
+  code span.ot { color: #007020; } /* Other */
+  code span.pp { color: #bc7a00; } /* Preprocessor */
+  code span.sc { color: #4070a0; } /* SpecialChar */
+  code span.ss { color: #bb6688; } /* SpecialString */
+  code span.st { color: #4070a0; } /* String */
+  code span.va { color: #19177c; } /* Variable */
+  code span.vs { color: #4070a0; } /* VerbatimString */
+  code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to Tiny Variable Labels</h1>
+
+
+
+<div id="abstract" class="section level1">
+<h1>Abstract</h1>
+<p>Variable labels are useful in many data-analysis contexts, but R does not provide variable labels in its base distribution. Several R packages introduced (sometimes conflicting) implementations (e.g., <strong>Hmisc</strong>, <strong>haven</strong>, <strong>sjLabelled</strong>), but these packages come with extensive dependencies. Following the philosophy of a <em>tiny</em> dependency graph (the <a href="http://www.tinyverse.org">tinyverse</a> philosophy), <strong>tinylabels</strong> set out to provide functionality for variable labels without depending on any non-base R packages, while also being as compatible as possible with other implementations. Another deliberate choice is that <strong>tinylabels</strong> only implements <em>variable</em> labels, not <em>value</em> labels.</p>
+<p>With a tiny dependency graph and a small code base, we hope that <strong>tinylabels</strong> may become an excellent choice for package developers, as well as for data analysts who care about dependencies.</p>
+<p>Function overview:</p>
+<ul>
+<li>Assign variable label: <code>variable_label()&lt;-</code></li>
+<li>Extract variable label: <code>variable_label()</code></li>
+<li>Remove labels and <code>tiny_labelled</code> class: <code>unlabel()</code></li>
+<li>Assign labels in a piped workflow: <code>label_variables()</code></li>
+</ul>
+</div>
+<div id="basic-usage" class="section level1">
+<h1>Basic Usage</h1>
+<p>Assign a variable label to a vector:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(tinylabels)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">6</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">variable_label</span>(x) &lt;-<span class="st"> &quot;Values randomly drawn from a standard-normal distribution&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>x</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt; Variable label     : Values randomly drawn from a standard-normal distribution</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; [1]  0.3874777 -1.7982855  1.1763396  1.5602310 -0.7872245 -2.4316381</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Extract the variable label from a vector (e.g., a numeric vector)</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">variable_label</span>(x)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; [1] &quot;Values randomly drawn from a standard-normal distribution&quot;</span></span></code></pre></div>
+<p>It is also possible to assign variable labels to (all or a subset of) the columns of a data frame. For instance, consider the built-in data set <code>npk</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># View original data set ----</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">str</span>(npk)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; &#39;data.frame&#39;:    24 obs. of  5 variables:</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt;  $ block: Factor w/ 6 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 1 1 1 2 2 2 2 3 3 ...</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;  $ N    : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 2 1 2 2 2 1 1 1 2 ...</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;  $ P    : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 2 1 1 1 2 1 2 2 2 ...</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt;  $ K    : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 1 1 2 1 2 2 1 1 2 ...</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt;  $ yield: num  49.5 62.8 46.8 57 59.8 58.5 55.5 56 62.8 55.8 ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Assign labels to the built-in data set &#39;npk&#39; ----</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">variable_label</span>(npk) &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="dt">N =</span> <span class="st">&quot;Nitrogen&quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  , <span class="dt">P =</span> <span class="st">&quot;Phosphate&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  , <span class="dt">yield =</span> <span class="st">&quot;Pea yield&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>)</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co"># View the altered data set ----</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="kw">str</span>(npk)</span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; &#39;data.frame&#39;:    24 obs. of  5 variables:</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  $ block: Factor w/ 6 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 1 1 1 2 2 2 2 3 3 ...</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;  $ N    : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 2 1 2 2 2 1 1 1 2 ...</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;   ..- attr(*, &quot;label&quot;)= chr &quot;Nitrogen&quot;</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  $ P    : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 2 1 1 1 2 1 2 2 2 ...</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt;   ..- attr(*, &quot;label&quot;)= chr &quot;Phosphate&quot;</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt;  $ K    : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 1 1 2 1 2 2 1 1 2 ...</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt;  $ yield: &#39;tiny_labelled&#39; num  49.5 62.8 46.8 57 59.8 58.5 55.5 56 62.8 55.8 ...</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt;   ..- attr(*, &quot;label&quot;)= chr &quot;Pea yield&quot;</span></span></code></pre></div>
+<p>The return value of <code>variable_label()</code> is a named list, where each list element corresponds to a column of the data frame.</p>
+<p>To assign labels to the columns of a data frame, the right-hand side of the assignment has to be a <strong>named</strong> list or vector. When trying to set columns that are not present in the data frame, a meaningful error message is thrown:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">variable_label</span>(npk) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">wrong_column_name =</span> <span class="st">&quot;A supposedly terrific label&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; Error: While trying to set variable labels, some requested columns could not be found in data.frame:</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; &#39;wrong_column_name&#39;</span></span></code></pre></div>
+<p>If you want to remove labels (and the corresponding S3 class) from a vector or all columns of a data frame, you may use function <code>unlabel</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Return as a simple factor ----</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">unlabel</span>(npk<span class="op">$</span>N)</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt;  [1] 0 1 0 1 1 1 0 0 0 1 1 0 1 1 0 0 1 0 1 0 1 1 0 0</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; Levels: 0 1</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co"># Remove all labels (and class &#39;tiny_labelled&#39;) from all columns ----</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>npk &lt;-<span class="st"> </span><span class="kw">unlabel</span>(npk)</span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="kw">str</span>(npk)</span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; &#39;data.frame&#39;:    24 obs. of  5 variables:</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;  $ block: Factor w/ 6 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 1 1 1 2 2 2 2 3 3 ...</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;  $ N    : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 1 2 1 2 2 2 1 1 1 2 ...</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;  $ P    : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 2 1 1 1 2 1 2 2 2 ...</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;  $ K    : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 1 1 2 1 2 2 1 1 2 ...</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;  $ yield: num  49.5 62.8 46.8 57 59.8 58.5 55.5 56 62.8 55.8 ...</span></span></code></pre></div>
+</div>
+<div id="supporting-the-tidyverse" class="section level1">
+<h1>Supporting the <em>tidyverse</em></h1>
+<p>While developing <strong>tinylabels</strong>, we aimed at supporting the <em>tidyverse</em> while also keeping the package’s dependency graph as tiny as possible. Therefore, <em>tidyverse</em> packages are not imported. However, if you have already installed the <strong>vctrs</strong> package on your computer, <strong>tinylabels</strong> will dynamically register methods for <code>vctrs::vec_ptype2()</code> and <code>vctrs::vec_cast()</code> that are necessary to play well with the <em>tidyverse</em>. With these methods, the <em>tidyverse</em>’s data manipulation functions become rather explicit about how they handle labels.</p>
+<p>For instance, consider these two data frames:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>data_<span class="dv">1</span> &lt;-<span class="st"> </span>data_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>  , <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="kw">variable_label</span>(data_<span class="dv">1</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">x =</span> <span class="st">&quot;Label for x&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Label for y&quot;</span>)</span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="kw">variable_label</span>(data_<span class="dv">2</span>) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">x =</span> <span class="st">&quot;Label for x&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Another label for y&quot;</span>)</span></code></pre></div>
+<p>If you try to combine two vectors that have different labels, only the label of the first vector is retained – in addition, you will receive a meaningful warning message. Consider, for instance, <code>dplyr::bind_rows()</code> applied to two data frames with non-matching variable labels:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; </span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt; Attaching package: &#39;dplyr&#39;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; </span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt;     filter, lag</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; </span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>combined_data &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(data_<span class="dv">1</span>, data_<span class="dv">2</span>)</span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; Warning in vec_ptype2.tiny_labelled.tiny_labelled(x = x, y = y, x_arg = x_arg, :</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; While combining two labelled vectors, variable label &#39;Another label for y&#39; was</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt; dropped and variable label &#39;Label for y&#39; was retained.</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="kw">variable_label</span>(combined_data)</span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; $x</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; [1] &quot;Label for x&quot;</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; </span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; $y</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; [1] &quot;Label for y&quot;</span></span></code></pre></div>
+<p>We also wrote the function <code>label_variables()</code> that is intended to be used in conjunction with the tidyverse’s pipe operator:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>test &lt;-<span class="st"> </span>npk <span class="op">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">group_by</span>(N, P) <span class="op">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">yield =</span> <span class="kw">mean</span>(yield), <span class="dt">.groups =</span> <span class="st">&quot;keep&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw">label_variables</span>(<span class="dt">N =</span> <span class="st">&quot;Nitrogen&quot;</span>, <span class="dt">P =</span> <span class="st">&quot;Phosphate&quot;</span>, <span class="dt">yield =</span> <span class="st">&quot;Average yield&quot;</span>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="kw">variable_labels</span>(test)</span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt; $N</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#&gt; [1] &quot;Nitrogen&quot;</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt; </span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt; $P</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt; [1] &quot;Phosphate&quot;</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt; </span></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt; $yield</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="co">#&gt; [1] &quot;Average yield&quot;</span></span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
