@@ -30,6 +30,9 @@ variable_label(npk) <- c(
 # View the altered data set ----
 str(npk)
 
+## -----------------------------------------------------------------------------
+variable_labels(npk)
+
 ## ----error = TRUE-------------------------------------------------------------
 variable_label(npk) <- c(wrong_column_name = "A supposedly terrific label")
 

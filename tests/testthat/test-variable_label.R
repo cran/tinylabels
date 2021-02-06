@@ -3,21 +3,32 @@ context("variable_label() replacement methods")
 test_that(
   "variable_label<-.default"
   , {
-    object_1 <- 1:4
-    variable_label(object_1) <- "label_1"
+    object <- 1:4
+    variable_label(object) <- "Label 1"
 
     expect_identical(
-      object = object_1
+      object = object
       , expected = structure(
         1:4
-        , label = "label_1"
+        , label = "Label 1"
         , class = c("tiny_labelled", "integer")
       )
     )
 
     expect_error(
-      tinylabels:::assign_label.default(x = 1:4)
-      , regexp = "Parameter 'value' must not be NULL."
+      variable_label(object) <- NULL
+      , regexp = "Variable labels must not be NULL. To entirely remove variable labels, use unlabel()."
+    )
+    expect_error(
+      variable_label(object) <- 1:2
+      , regexp = "Trying to set a variable label of length greater than one: '1', '2'"
+    )
+
+    # Recursively use unlist() on list-like input
+    variable_label(object) <- list(b = list("a"))
+    expect_identical(
+      variable_label(object)
+      , "a"
     )
   }
 )
@@ -35,7 +46,7 @@ test_that(
     )
     expect_error(
       variable_label(object) <- "a"
-      , "The assigned variable label(s) must be passed as a named vector or list."
+      , "The assigned variable label(s) must be passed as a named vector or a named list."
       , fixed = TRUE
     )
     variable_label(object) <- c("a" = "A beautiful test label.", c = "Deal with list columns")
@@ -91,8 +102,47 @@ test_that(
         , class = "data.frame"
       )
     )
+
+    object <- npk
+    variable_label(object) <- c(
+      N = "Nitrogen"
+      , P = NULL
+    )
   }
 )
+
+test_that(
+  "variable_label.data.frame() for duplicate column names"
+  , {
+    object <- data.frame(x = 1, x = 2, check.names = F)
+    variable_label(object) <- c(x = "Test duplicate columns")
+    expect_identical(
+      variable_label(object)
+      , list(x = "Test duplicate columns", x = "Test duplicate columns")
+    )
+  }
+)
+
+test_that(
+  "variable_label.data.frame() -- only modify columns if value is not NULL"
+  , {
+    object <- data.frame(
+      x = 1
+      , y = 2
+    )
+    variable_labels(object) <- list(
+      x = "A nice label"
+      , y = NULL
+    )
+
+    expect_identical(
+      variable_labels(object)
+      , list(x = "A nice label", y = NULL)
+    )
+
+  }
+)
+
 
 
 context("variable_label() extraction methods")

@@ -13,13 +13,21 @@ assign_label <- function(x, value, ...){
 
 assign_label.default <- function(x, value){
 
-  if(missing(value)) stop("Parameter 'value' must not be NULL.")
+  # First remove all nesting structures
+  value <- unname(unlist(value, recursive = TRUE, use.names = FALSE))
 
-  structure(
-    x
-    , label = value
-    , class = c("tiny_labelled", setdiff(class(x), "tiny_labelled"))
+  if(missing(value) || is.null(value)) stop("Variable labels must not be NULL. To entirely remove variable labels, use unlabel().", call. = FALSE)
+
+  # Labels may have length 0 or 1
+  if(length(value) > 1L) stop(
+    "Trying to set a variable label of length greater than one: "
+    , paste(encodeString(value, quote = "'"), collapse = ", ")
   )
+
+  # Faster than calling structure()
+  attr(x, "label") <- value
+  class(x) <- unique.default(c("tiny_labelled", class(x)))
+  x
 }
 
 
@@ -35,7 +43,7 @@ assign_label.data.frame <- function(x, value, ...){
 
   if(is.null(names(value))){
     stop(
-      "The assigned variable label(s) must be passed as a named vector or list."
+      "The assigned variable label(s) must be passed as a named vector or a named list."
       , call. = FALSE
     )
   }
@@ -48,11 +56,12 @@ assign_label.data.frame <- function(x, value, ...){
     )
   }
 
-  for(i in seq_along(colnames(x))) {
-    if(any(colnames(x)[i] == names(value))) {
-      x[[i]] <- assign_label(x[[i]], value[[colnames(x)[i]]])
+  colx <- colnames(x)
+  for(i in seq_along(colx)) {
+    if(any(colx[i] == names(value))) {
+      v <- value[[colx[i]]]
+      if(!is.null(v)) x[[i]] <- assign_label(x[[i]], v)
     }
   }
-
   x
 }
