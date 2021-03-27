@@ -1,7 +1,7 @@
-a85de2889caec907e37401f439bfc395 *DESCRIPTION
+257b0461353caf5de7cd7ddd5a6acd42 *DESCRIPTION
 d53268cca9695fcd650abdec3ce7cdfe *LICENSE
 ac751752b2fb301d8c998e85d7612951 *NAMESPACE
-1e5dcf85ea815eebbac08e07919caf94 *NEWS.md
+6e1b7833c8db98a967cedff5e79f4274 *NEWS.md
 78a49ca9f69fe946c1e97dc02cab0d95 *R/assign_label.R
 e11663e2d7cf747fa9954382a562c439 *R/methods-base.R
 26e43e3934bd74d28995dfe5c985dc0e *R/methods-stats.R
@@ -10,12 +10,12 @@ e11663e2d7cf747fa9954382a562c439 *R/methods-base.R
 d5dea00784dce86e0fe715a58ffde8c7 *R/tinylabels.R
 8e4bac2ae4c72a3b7523bf525863206f *R/unlabel.R
 32bf2cf711bb71b06fc76d38d76dcf46 *R/variable_label.R
-6b0642ae033318b726abc097388e14c0 *README.md
-d386a42cb02d52d53e405c2f16ca98d9 *build/vignette.rds
+fbb74cff37dc96f3ca5f4a503c84c169 *README.md
+fb10861482224f626db589766f493e4f *build/vignette.rds
 1a27bd4d84b43adbd708e81cca4bf629 *inst/CITATION
 db0f25f4857dba99c5ec96d0e490790d *inst/doc/tinylabels_vignette.R
 5d540e27fee48eb038baca7857067cf4 *inst/doc/tinylabels_vignette.Rmd
-a2e3640c0eee1f9eb79f6b90931d6450 *inst/doc/tinylabels_vignette.html
+3d26eb621095f0fe9d374d92f5ee7efe *inst/doc/tinylabels_vignette.html
 f60cf9d2acbe2e1cae9262fc1fbbeac7 *man/coerce-tiny_labelled.Rd
 1423f3c785bbf0fafff3f49bf4855349 *man/label_variable.Rd
 f83c821c87360574f5df2182af378611 *man/relevel.tiny_labelled.Rd
@@ -28,6 +28,6 @@ e0727ccb6451d5a7c5ca6ad8dfc41ec9 *tests/testthat/test-methods_stats.R
 df7b4b9aeb371cba7e303365de451d35 *tests/testthat/test-methods_vctrs.R
 c258ca0f904a5a3857a2e07c1e9b97b6 *tests/testthat/test-onload.R
 fe4cb64ce29c5b07214ff08ad2bd3e91 *tests/testthat/test-unlabel.R
-e4c6dc685fb963d80d26870de5c7b78a *tests/testthat/test-variable_label.R
+fd8a170b9a1dd67141f39e055cdaa235 *tests/testthat/test-variable_label.R
 d1ead3de239c854b1f0348220d9b2db3 *tests/testthat/test-variable_unit.R
 5d540e27fee48eb038baca7857067cf4 *vignettes/tinylabels_vignette.Rmd
