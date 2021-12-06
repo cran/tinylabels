@@ -11,8 +11,8 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tinylabels)](https://cran.r-project.org/package=tinylabels)
 [![R build
-status](https://github.com/mariusbarth/tinylabels/workflows/R-CMD-check/badge.svg)](https://github.com/mariusbarth/tinylabels/actions)
-[![codecov](https://codecov.io/gh/mariusbarth/tinylabels/branch/main/graph/badge.svg?token=F8WZU5K3XY)](https://codecov.io/gh/mariusbarth/tinylabels)
+status](https://github.com/mariusbarth/tinylabels/workflows/R-CMD-CHECK/badge.svg)](https://github.com/mariusbarth/tinylabels/actions)
+[![codecov](https://codecov.io/gh/mariusbarth/tinylabels/branch/main/graph/badge.svg?token=F8WZU5K3XY)](https://app.codecov.io/gh/mariusbarth/tinylabels)
 <!-- badges: end -->
 
 Variable labels are useful in many data-analysis contexts, but R does
@@ -20,7 +20,7 @@ not provide variable labels in its base distribution. Several R packages
 introduced (sometimes conflicting) implementations (e.g., **Hmisc**,
 **haven**, **sjlabelled**), but these packages come with extensive
 dependencies. Following the philosophy of a *tiny* dependency graph (the
-[tinyverse](http://www.tinyverse.org) philosophy), **tinylabels** set
+[tinyverse](https://www.tinyverse.org) philosophy), **tinylabels** set
 out to provide functionality for variable labels without depending on
 any non-base R packages, while also being as compatible as possible with
 other implementations. Another deliberate choice is that **tinylabels**
@@ -48,7 +48,7 @@ x <- rnorm(6)
 variable_label(x) <- "Values randomly drawn from a standard-normal distribution"
 x
 #> Variable label     : Values randomly drawn from a standard-normal distribution
-#> [1] -1.0340533 -0.4618971  1.1801754 -0.1099567  0.9070625 -0.8360684
+#> [1] -2.1576383  1.3916812  1.1212565 -0.2966887  0.6191351 -0.0413536
 ```
 
 ``` r
@@ -182,11 +182,11 @@ variable_label(data_2) <- c(x = "Label for x", y = "Another label for y")
 ``` r
 library(dplyr)
 #> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
+#> Attache Paket: 'dplyr'
+#> Die folgenden Objekte sind maskiert von 'package:stats':
 #> 
 #>     filter, lag
-#> The following objects are masked from 'package:base':
+#> Die folgenden Objekte sind maskiert von 'package:base':
 #> 
 #>     intersect, setdiff, setequal, union
 combined_data <- bind_rows(data_1, data_2)
@@ -201,7 +201,7 @@ variable_label(combined_data)
 #> [1] "Label for y"
 ```
 
-Tu further support *tidyverse*-ish code, we also wrote the function
+To further support *tidyverse*-ish code, we also wrote the function
 `label_variables()` that is intended to be used in conjunction with the
 *tidyverse*’s pipe operator:
 

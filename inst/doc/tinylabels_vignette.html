@@ -141,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p>Variable labels are useful in many data-analysis contexts, but R does not provide variable labels in its base distribution. Several R packages introduced (sometimes conflicting) implementations (e.g., <strong>Hmisc</strong>, <strong>haven</strong>, <strong>sjlabelled</strong>), but these packages come with extensive dependencies. Following the philosophy of a <em>tiny</em> dependency graph (the <a href="http://www.tinyverse.org">tinyverse</a> philosophy), <strong>tinylabels</strong> set out to provide functionality for variable labels without depending on any non-base R packages, while also being as compatible as possible with other implementations. Another deliberate choice is that <strong>tinylabels</strong> only implements <em>variable</em> labels, not <em>value</em> labels.</p>
+<p>Variable labels are useful in many data-analysis contexts, but R does not provide variable labels in its base distribution. Several R packages introduced (sometimes conflicting) implementations (e.g., <strong>Hmisc</strong>, <strong>haven</strong>, <strong>sjlabelled</strong>), but these packages come with extensive dependencies. Following the philosophy of a <em>tiny</em> dependency graph (the <a href="https://www.tinyverse.org">tinyverse</a> philosophy), <strong>tinylabels</strong> set out to provide functionality for variable labels without depending on any non-base R packages, while also being as compatible as possible with other implementations. Another deliberate choice is that <strong>tinylabels</strong> only implements <em>variable</em> labels, not <em>value</em> labels.</p>
 <p>With a tiny dependency graph and a small code base, we hope that <strong>tinylabels</strong> may become an excellent choice for package developers, as well as for data analysts who care about dependencies.</p>
 <p>Function overview:</p>
 <ul>
@@ -159,7 +159,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">variable_label</span>(x) <span class="ot">&lt;-</span> <span class="st">&quot;Values randomly drawn from a standard-normal distribution&quot;</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>x</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Variable label     : Values randomly drawn from a standard-normal distribution</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  2.03489374  0.51258204  0.04436549 -1.17469765 -0.45101810  0.45000078</span></span></code></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  1.943207402 -1.327138775  0.608532362 -0.004517017 -0.042596444</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6]  1.530424641</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the variable label from a vector (e.g., a numeric vector)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">variable_label</span>(x)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Values randomly drawn from a standard-normal distribution&quot;</span></span></code></pre></div>
@@ -241,11 +242,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">variable_label</span>(data_2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">x =</span> <span class="st">&quot;Label for x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Another label for y&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;dplyr&#39;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attache Paket: &#39;dplyr&#39;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Die folgenden Objekte sind maskiert von &#39;package:stats&#39;:</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     filter, lag</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Die folgenden Objekte sind maskiert von &#39;package:base&#39;:</span></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(data_1, data_2)</span>
@@ -258,7 +259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $y</span></span>
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Label for y&quot;</span></span></code></pre></div>
-<p>Tu further support <em>tidyverse</em>-ish code, we also wrote the function <code>label_variables()</code> that is intended to be used in conjunction with the <em>tidyverse</em>’s pipe operator:</p>
+<p>To further support <em>tidyverse</em>-ish code, we also wrote the function <code>label_variables()</code> that is intended to be used in conjunction with the <em>tidyverse</em>’s pipe operator:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> npk <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(N, P) <span class="sc">%&gt;%</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">yield =</span> <span class="fu">mean</span>(yield), <span class="at">.groups =</span> <span class="st">&quot;keep&quot;</span>) <span class="sc">%&gt;%</span></span>
