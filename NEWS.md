@@ -1,4 +1,11 @@
 
+# tinylabels 0.2.3
+
+- Added `as()` methods to support the S4 class system.
+- For the data-frame method, if names of to-be-assigned values (i.e., keys) are
+  duplicated, an informative error message is returned.
+- Added vignette specifying desired behavior of the `tiny_labelled` class.
+
 # tinylabels 0.2.2
 
 - Added methods for group generics `Math`, `Ops`, `Summary`, and `Complex` from
